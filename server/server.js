@@ -1,8 +1,9 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import cors from 'cors';
-import dotenv from 'dotenv';
-import mongoose from 'mongoose';
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const dotenv = require('dotenv');
+const mongoose = require('mongoose');
+const authRoutes = require('./routes/authRoutes.js');
 
 const app = express();
 
@@ -14,7 +15,7 @@ app.use(cors({ origin: '*' }));
 
 app.use(bodyParser.json());
 
-app.use('api/v1/auth',authRoutes)
+app.use('/api/v1/auth',authRoutes)
 const DB = process.env.DATABASE;
 
 mongoose.connect(DB, {
