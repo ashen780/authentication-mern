@@ -11,11 +11,14 @@ dotenv.config();
 
 app.enable('trust proxy');
 
-app.use(cors({ origin: '*' }));
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+}));
 
 app.use(bodyParser.json());
 
-app.use('/api/v1/auth',authRoutes)
+app.use('/api/v1/auth', authRoutes)
 const DB = process.env.DATABASE;
 
 mongoose.connect(DB, {
