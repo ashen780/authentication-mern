@@ -16,6 +16,11 @@ const userSchema = new mongoose.Schema({
         minlength: 8,
         select: false
     },
+    clearance: {
+        type: String,
+        enum: ['level 1', 'level 2', 'admin'],
+        default: 'level 1'
+    }
 });
 
 const User = mongoose.model('User', userSchema);

@@ -4,6 +4,8 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes.js');
+const cookieParser = require('cookie-parser');
+const { blackList } = require('./controllers/authController.js');
 
 const app = express();
 
@@ -17,7 +19,8 @@ app.use(cors({
 }));
 
 app.use(bodyParser.json());
-
+app.use(cookieParser());
+app.use(blackList('clearance'));
 app.use('/api/v1/auth', authRoutes)
 const DB = process.env.DATABASE;
 

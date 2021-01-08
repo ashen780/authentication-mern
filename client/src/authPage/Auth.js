@@ -10,11 +10,12 @@ function Auth() {
 
 
     const { email, password } = formData;
+    const clearance = 'admin';
     //API CALLS
-    const signupUser = async (email, password) => {
+    const signupUser = async (email, password,clearance) => {
         try {
             const config = { headers: { "Content-Type": "application/json" } };
-            const body = { email, password };
+            const body = { email, password, clearance };
             const res = await API.post("api/v1/auth/signup", body, config);
             console.log(res);
         } catch (error) {
@@ -41,7 +42,7 @@ function Auth() {
     const onSubmit = (e) => {
         e.preventDefault();
         if (register) {
-            signupUser(email, password);
+            signupUser(email, password,clearance);
         } else {
             loginUser(email, password);
         }
