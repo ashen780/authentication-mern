@@ -1,38 +1,39 @@
 import React, { Fragment, useState } from 'react';
 import logo from '../img/logo.png';
 import './Auth.css';
-import API from '../utils/API';
+import { useDispatch } from 'react-redux';
+import { signupUser, loginUser } from '../redux/actions/authActions';
 
 function Auth() {
 
     const [register, setRegister] = useState(false);
     const [formData, setformData] = useState({ email: '', password: '' });
 
-
+    const dispatch = useDispatch();
     const { email, password } = formData;
-    const clearance = 'admin';
-    //API CALLS
-    const signupUser = async (email, password,clearance) => {
-        try {
-            const config = { headers: { "Content-Type": "application/json" } };
-            const body = { email, password, clearance };
-            const res = await API.post("api/v1/auth/signup", body, config);
-            console.log(res);
-        } catch (error) {
-            console.log(error);
-        }
-    }
 
-    const loginUser = async (email, password) => {
-        try {
-            const config = { headers: { "Content-Type": "application/json" } };
-            const body = { email, password };
-            const res = await API.post("api/v1/auth/login", body, config);
-            console.log(res);
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    //API CALLS
+    // const signupUser = async (email, password,clearance) => {
+    //     try {
+    //         const config = { headers: { "Content-Type": "application/json" } };
+    //         const body = { email, password, clearance };
+    //         const res = await API.post("api/v1/auth/signup", body, config);
+    //         console.log(res);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
+
+    // const loginUser = async (email, password) => {
+    //     try {
+    //         const config = { headers: { "Content-Type": "application/json" } };
+    //         const body = { email, password };
+    //         const res = await API.post("api/v1/auth/login", body, config);
+    //         console.log(res);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
 
     //Functions
     const onChange = (e) => {
@@ -42,9 +43,9 @@ function Auth() {
     const onSubmit = (e) => {
         e.preventDefault();
         if (register) {
-            signupUser(email, password,clearance);
+            dispatch(signupUser(email, password));
         } else {
-            loginUser(email, password);
+            dispatch(loginUser(email, password));
         }
         console.log('button clicked');
     }
